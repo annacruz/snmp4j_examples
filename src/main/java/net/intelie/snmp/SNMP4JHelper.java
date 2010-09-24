@@ -24,6 +24,7 @@ public class SNMP4JHelper {
     //public static final String OID_UPS_OUTLET_GROUP1 = "1.3.6.1.4.1.318.1.1.1.12.3.2.1.3.1";
     //public static final String OID_UPS_BATTERY_CAPACITY = "1.3.6.1.4.1.318.1.1.1.2.2.1.0";
     public static final String OID_CPU_LOAD_1_MINUTE = "1.3.6.1.4.1.2021.10.1.3.1";
+    //public static final String OID_CPU_IDLE = "1.3.6.1.4.1.2021.11.11.0";
     public static final String SNMP_PORT = "161";
 
     public static void main(String[] args){
@@ -40,7 +41,7 @@ public class SNMP4JHelper {
         }
     }
 
-    public void snmpSet(String strAddress, String community, String strOID, int Value){
+/*    public void snmpSet(String strAddress, String community, String strOID, int Value){
         
         strAddress = strAddress + "/"+ SNMP_PORT;
         Address targetAddress = GenericAddress.parse(strAddress);
@@ -71,7 +72,7 @@ public class SNMP4JHelper {
         catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }      */
 
     public String snmpGet(String strAddress, String community, String strOID){
         String str = "";
@@ -97,9 +98,9 @@ public class SNMP4JHelper {
             snmp = new Snmp(transport);
             response = snmp.get(pdu,comtarget);
             if (response != null){
-                if(response.getResponse().getErrorStatusText().equalsIgnoreCase("Sucess")){
+                if(response.getResponse().getErrorStatusText().equalsIgnoreCase("Success")){
                     PDU pduresponse = response.getResponse();
-                    str=pduresponse.getVariableBindings().firstElement().toString();
+                    str = pduresponse.getVariableBindings().firstElement().toString();
                     if(str.contains("=")){
                         int len = str.indexOf("=");
                         str = str.substring(len+1,str.length());
@@ -114,7 +115,7 @@ public class SNMP4JHelper {
         catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("RESPONSE= " + str);
+        System.out.println("RESPONSE = " + str);
         return str;
     }
 }
