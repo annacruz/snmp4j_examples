@@ -1,0 +1,4 @@
+Project with examples of snmp4j lib
+
+mvn package
+mvn exec -Dexec.mainClass=SNMP4JHelper -e
